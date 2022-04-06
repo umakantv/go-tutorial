@@ -15,12 +15,12 @@ func main() {
 	log.SetFlags(3)
 
 	// Request a greeting message.
-	message, err := greetings.Hello("")
+	message, err := greetings.Hello("Umakant")
 	// If an error was returned, print it to the console and
 	// exit the program.
 	if err != nil {
 		log.Println("Error in the greeting:", err)
 	}
 
-	fmt.Println("Received Message", message, "end of message")
+	fmt.Println("Received Message\n", message, "\nEnd of message")
 }
