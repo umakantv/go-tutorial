@@ -18,6 +18,32 @@ func Hello(name string) (string, error) {
 	return message, nil
 }
 
+// Hellos returns a map that associates each of the named people
+// with a greeting message.
+func Hellos(names []string) (map[string]string, error) {
+	// A map to associate names with messages.
+	result := make(map[string]string)
+
+	// Loop through the received slice of names, calling
+	// the Hello function to get a message for each name.
+	for i := 0; i < len(names); i++ {
+		message, error := Hello(names[i])
+		if error != nil {
+			return nil, error
+		}
+		result[names[i]] = message
+	}
+
+	/*
+		Another for loop:
+		for index, value := range names {
+		}
+
+		For variables we don't need we use _ (the blank identifier)
+	*/
+	return result, nil
+}
+
 // init sets initial values for variables used in the function.
 // Go executes init functions automatically at program startup, after global variables have been initialized.
 func init() {

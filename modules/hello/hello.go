@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"greetings"
@@ -14,6 +13,21 @@ func main() {
 	log.SetPrefix("greetings: ")
 	log.SetFlags(3)
 
+	// A slice of names.
+	names := []string{"Umakant", "Anand", "Vivek"}
+	// Request greeting messages for the names.
+	messages, err := greetings.Hellos(names)
+	if err != nil {
+		log.Println("Error in greetings:", err)
+		// log.Fatal(err)
+	}
+	// If no error was returned, print the returned map of
+	// messages to the console.
+	// fmt.Println(messages)
+	for name, greeting := range messages {
+		log.Println(name, "=>", greeting)
+	}
+
 	// Request a greeting message.
 	message, err := greetings.Hello("Umakant")
 	// If an error was returned, print it to the console and
@@ -22,5 +36,5 @@ func main() {
 		log.Println("Error in the greeting:", err)
 	}
 
-	fmt.Println("Received Message\n", message, "\nEnd of message")
+	log.Println("Received Message\n", message, "\nEnd of message")
 }
