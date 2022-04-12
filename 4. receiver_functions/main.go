@@ -13,7 +13,7 @@ func main() {
 
 	error := cards.saveToFile(fileNmae)
 	if error != nil {
-		log.Panicln("Error in saving deck to file:", error.Error())
+		log.Fatalln("Error in saving deck to file:", error.Error())
 	} else {
 		log.Println("Saved deck to file named initial_deck!")
 	}
