@@ -1,15 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 type deck []string
 
+// Print the cards in a deck
 func (d deck) print() {
 	for i, card := range d {
 		fmt.Println(i, card)
 	}
 }
 
+// Get a newly created Deck
 func createNewDeck() deck {
 	newDeck := deck{}
 
@@ -17,13 +22,13 @@ func createNewDeck() deck {
 	cardValues := []string{
 		"Ace",
 		"Two",
-		"Three",
-		"Four",
-		"Five",
-		"Six",
-		"Seven",
-		"Eight",
-		"Nine",
+		// "Three",
+		// "Four",
+		// "Five",
+		// "Six",
+		// "Seven",
+		// "Eight",
+		// "Nine",
 		"Ten",
 		"Joker",
 		"Queen",
@@ -37,4 +42,27 @@ func createNewDeck() deck {
 	}
 
 	return newDeck
+}
+
+// Get two sets of cards from a deck
+// according to a handSize
+func deal(d deck, handSize int) (deck, deck) {
+	return d[:handSize], d[handSize:]
+}
+
+// Shuffle the deck in O(n)
+func (d deck) shuffle() deck {
+	l := len(d)
+	shuffledDeck := deck{}
+
+	for i := 0; i < l; i = i + 1 {
+		position := rand.Intn(len(d))
+		card := d[position]
+		d[position] = d[len(d)-1]
+		d = d[:len(d)-1]
+
+		shuffledDeck = append(shuffledDeck, card)
+	}
+
+	return shuffledDeck
 }
