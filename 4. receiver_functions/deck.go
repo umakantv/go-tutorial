@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"math/rand"
 	"strings"
 	"time"
@@ -77,4 +78,15 @@ func (d deck) toString() string {
 
 func (d deck) saveToFile(fileName string) error {
 	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666)
+}
+
+func readFromFile(fileName string) (deck, error) {
+	data, error := ioutil.ReadFile(fileName)
+	if error != nil {
+		log.Fatal("Error while reading from file: ", error.Error())
+		return nil, error
+	} else {
+		cards := strings.Split(string(data), "\n")
+		return deck(cards), nil
+	}
 }

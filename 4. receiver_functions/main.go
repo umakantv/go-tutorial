@@ -9,12 +9,22 @@ func main() {
 	cards := createNewDeck()
 	cards = cards.shuffle()
 
-	error := cards.saveToFile("initial_deck.txt")
+	const fileNmae string = "initial_deck.txt"
+
+	error := cards.saveToFile(fileNmae)
 	if error != nil {
 		log.Panicln("Error in saving deck to file:", error.Error())
 	} else {
 		log.Println("Saved deck to file named initial_deck!")
 	}
+
+	cards, error = readFromFile(fileNmae)
+	if error != nil {
+		log.Panicln("Error in reading deck from file:", error.Error())
+	} else {
+		log.Println("Loaded deck to file named initial_deck!")
+	}
+
 	fmt.Println("Total cards", len(cards))
 
 	hand, remainingCards := deal(cards, 5)
