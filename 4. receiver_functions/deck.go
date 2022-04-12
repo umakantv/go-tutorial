@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"math/rand"
+	"strings"
 	"time"
 )
 
@@ -67,4 +69,12 @@ func (d deck) shuffle() deck {
 	}
 
 	return d
+}
+
+func (d deck) toString() string {
+	return strings.Join([]string(d), "\n")
+}
+
+func (d deck) saveToFile(fileName string) error {
+	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666)
 }

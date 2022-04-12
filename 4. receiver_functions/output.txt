@@ -1,0 +1,27 @@
+Total cards 24
+Hand 5
+0 Queen of Clubs
+1 Joker of Spades
+2 Queen of Diamonds
+3 Ace of Clubs
+4 Queen of Spades
+Remaining Deck 19
+0 King of Diamonds
+1 King of Spades
+2 Joker of Diamonds
+3 Ten of Hearts
+4 Two of Clubs
+5 Two of Spades
+6 Ten of Clubs
+7 Queen of Hearts
+8 Ten of Diamonds
+9 Two of Diamonds
+10 Two of Hearts
+11 Ace of Diamonds
+12 Ace of Hearts
+13 Ace of Spades
+14 Joker of Clubs
+15 King of Hearts
+16 Ten of Spades
+17 King of Clubs
+18 Joker of Hearts
