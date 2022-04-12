@@ -22,5 +22,9 @@ go 1.18
 
 ## Using `require`
 Then we run `go mod tidy` to update the `go.mod` file with the `require` statement.
+This also downloads the package at `~/go/pkg/...`
+
+## Important Links
+[Using Private Go Modules](https://www.digitalocean.com/community/tutorials/how-to-use-a-private-go-module-in-your-own-project)
 
 That's it! We are done. We can now run the module with `go run .`.

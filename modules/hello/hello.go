@@ -1,9 +1,10 @@
 package main
 
 import (
+	"greetings"
 	"log"
 
-	"greetings"
+	"github.com/razorpay/goutils/uniqueid"
 )
 
 func main() {
@@ -25,7 +26,11 @@ func main() {
 	// messages to the console.
 	// fmt.Println(messages)
 	for name, greeting := range messages {
-		log.Println(name, "=>", greeting)
+		id, err := uniqueid.New()
+		if err != nil {
+			log.Fatalf(err.Error())
+		}
+		log.Println(id, name, "=>", greeting)
 	}
 
 	// Request a greeting message.
