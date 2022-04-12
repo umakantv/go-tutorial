@@ -28,7 +28,9 @@ func init() {
 func createNewDeck() deck {
 	newDeck := deck{}
 
-	cardSuites := []string{"Spades", "Diamonds", "Clubs", "Hearts"}
+	cardSuites := []string{
+		"Spades", "Diamonds", "Clubs", "Hearts",
+	}
 	cardValues := []string{
 		"Ace",
 		"Two",
