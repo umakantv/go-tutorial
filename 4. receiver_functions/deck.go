@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 type deck []string
@@ -12,6 +13,12 @@ func (d deck) print() {
 	for i, card := range d {
 		fmt.Println(i, card)
 	}
+}
+
+// init sets initial values for variables used in the function.
+// Go executes init functions automatically at program startup, after global variables have been initialized.
+func init() {
+	rand.Seed(time.Now().UnixNano())
 }
 
 // Get a newly created Deck
