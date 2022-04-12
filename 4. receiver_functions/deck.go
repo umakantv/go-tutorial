@@ -53,16 +53,11 @@ func deal(d deck, handSize int) (deck, deck) {
 // Shuffle the deck in O(n)
 func (d deck) shuffle() deck {
 	l := len(d)
-	shuffledDeck := deck{}
 
 	for i := 0; i < l; i = i + 1 {
 		position := rand.Intn(len(d))
-		card := d[position]
-		d[position] = d[len(d)-1]
-		d = d[:len(d)-1]
-
-		shuffledDeck = append(shuffledDeck, card)
+		d[i], d[position] = d[position], d[i]
 	}
 
-	return shuffledDeck
+	return d
 }
