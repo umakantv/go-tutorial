@@ -4,6 +4,22 @@ import (
 	"fmt"
 )
 
+/*
+	Value Type Data Structures:
+	* int
+	* bool
+	* string
+	* float
+	* struct
+
+	Reference Type Data Structures:
+	* slice
+	* map
+	* pointer
+	* function
+	* channel
+*/
+
 type contactInfo struct {
 	email string
 	phone string
@@ -20,9 +36,17 @@ func (p person) print() {
 	fmt.Println(p)
 }
 
+// We need to think about pointers when we need to modify passed/original value
+// Only in case Value Type data structures
 func (p *person) updateFirstName(newFirstName string) {
 	// (*p).firstName = newFirstName
 	p.firstName = newFirstName // <-- This also works
+}
+
+// We need not think about pointers when we need to modify passed/original value
+// Only in case Reference Type data structures
+func updateSliceWithoutPointers(someSlice []string) {
+	someSlice[1] = "who"
 }
 
 func main() {
@@ -48,4 +72,9 @@ func main() {
 	michael.lastName = "Scott"
 	michael.age = 5
 	michael.print()
+
+	someSlice := []string{"Hey", "how", "are", "you"}
+
+	updateSliceWithoutPointers(someSlice)
+	fmt.Println(someSlice)
 }
