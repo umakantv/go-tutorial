@@ -8,3 +8,5 @@ Make Concrete types implicitly implement some interface
 
 * Step 2:  
 Use that interface to reperesent those types for code reuse.
+
+Interfaces only help in forming a contract between different concrete implementations.

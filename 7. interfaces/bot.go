@@ -24,7 +24,7 @@ func getGreeting(b bot) {
 	fmt.Println(b.getGreeting())
 }
 
-func main() {
+func Bot() {
 	eb := englishBot{}
 	sb := spanishBot{}
 
