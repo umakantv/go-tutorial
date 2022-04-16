@@ -5,7 +5,16 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"time"
 )
+
+// Custom Writer for writting logs to the terminal in a trimmed fashion
+type TrimLogWriter struct{}
+
+func (TrimLogWriter) Write(p []byte) (int, error) {
+	n, err := fmt.Println(time.Now().Format(time.UnixDate), string(p[:120]))
+	return n, err
+}
 
 func main() {
 
@@ -17,12 +26,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	bs := make([]byte, 120)
+	// bs := make([]byte, 120)
+	// readBytes, _ := resp.Body.Read(bs)
+	// fmt.Println(readBytes, string(bs))
 
-	readBytes, _ := resp.Body.Read(bs)
-
-	fmt.Println(readBytes, string(bs))
-
-	io.Copy(os.Stdout, resp.Body)
+	// io.Copy(os.Stdout, resp.Body)
+	io.Copy(TrimLogWriter{}, resp.Body)
 
 }
