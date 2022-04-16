@@ -51,9 +51,9 @@ func getGreeting(b bot) {
 
 	*/
 
-	ebWithAssert, ok := b.(enhancedBot)
-
-	if ok {
+	if ebWithAssert, ok := b.(enhancedBot); ok {
+		// We can also do the above check with one declaration
+		// if ebWithAssert, ok := b.(interface{ getRandomGreeting() string }); ok {
 		fmt.Println(ebWithAssert.getRandomGreeting())
 		return
 	}
