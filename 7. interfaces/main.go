@@ -1,24 +1,20 @@
 package main
 
-import (
-	"fmt"
-	"net/http"
-	"os"
-)
-
 func main() {
-	resp, err := http.Get("http://google.com")
 
-	if err != nil {
-		fmt.Println("Error:", err.Error())
-		os.Exit(1)
-	}
+	Bot()
+	// resp, err := http.Get("http://google.com")
 
-	bs := make([]byte, 120)
+	// if err != nil {
+	// 	fmt.Println("Error:", err.Error())
+	// 	os.Exit(1)
+	// }
 
-	readBytes, _ := resp.Body.Read(bs)
+	// bs := make([]byte, 120)
 
-	fmt.Println(readBytes, string(bs))
+	// readBytes, _ := resp.Body.Read(bs)
+
+	// fmt.Println(readBytes, string(bs))
 
 	// io.Copy(os.Stdout, resp.Body)
 
