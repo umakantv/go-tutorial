@@ -24,10 +24,12 @@ func main() {
 
 	for l := range c {
 		// fmt.Println(l)
-		go func() {
-			time.Sleep(time.Second * 5)
+		go func(l string) {
+			// fmt.Println(duration)
+			duration := time.Second * 5
+			time.Sleep(duration)
 			checkLink(l, c)
-		}()
+		}(l)
 	}
 
 }
