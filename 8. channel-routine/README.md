@@ -36,3 +36,10 @@ someVariable <- c
 > Note
 > * Retreival of messages from the channel can be done atmost the same exact number of times as sending the message into the channel, we can ignore messages if we do not care about them. But if we expect a message from the channel, we must send the message as well; otherwise it will block the execution.  
 > * Sending message into channels is only possible through routines. Calling a function with channels without using the `go` keyword and sending message into the channel will result in program crashing.
+
+
+For non-blocking part of the code, we can't rely on any routine getting executed before other routines.
+They can get executed in any order for non-blocking parts of the code.
+
+But we can safely say that since all go routines will have a listener,
+the program will terminate after all go routines each will have sent a message.
