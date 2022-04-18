@@ -60,7 +60,6 @@ func getAllCustomers(w http.ResponseWriter, r *http.Request) {
 }
 
 func getCustomer(w http.ResponseWriter, r *http.Request) {
-	log.Println("GET /customers")
 
 	id, e := strconv.Atoi((mux.Vars(r)["customer_id"]))
 	if e != nil {
@@ -68,6 +67,7 @@ func getCustomer(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "Bad input data for customer id.")
 		return
 	}
+	log.Printf("GET /customers/%v", id)
 	for _, customer := range customers {
 		if customer.Id == id {
 			writeJsonOrXml(w, r, customer)
