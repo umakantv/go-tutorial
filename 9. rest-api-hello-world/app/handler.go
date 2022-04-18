@@ -2,6 +2,7 @@ package app
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"fmt"
 	"log"
 	"math"
@@ -48,11 +49,16 @@ func getAllCustomers(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	w.Header().Add("Content-Type", "application/json")
+	var e error
 
-	// bs := make([]byte, 1024)
-	// json.NewEncoder(os.Stdout).Encode(customers)
-	e := json.NewEncoder(w).Encode(customers)
+	if r.Header.Get("Content-Type") == "application/xml" {
+		w.Header().Add("Content-Type", "application/xml")
+		e = xml.NewEncoder(w).Encode(customers)
+	} else {
+		w.Header().Add("Content-Type", "application/json")
+		e = json.NewEncoder(w).Encode(customers)
+	}
+
 	if e != nil {
 		// throw error here
 		fmt.Fprint(w, "Server Error: ", e.Error())
