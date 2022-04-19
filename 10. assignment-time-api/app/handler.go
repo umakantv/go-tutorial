@@ -9,10 +9,6 @@ import (
 	"time"
 )
 
-type TimeResponse struct {
-	CurrentTime string `json:"current_time"`
-}
-
 func getCurrentTime(w http.ResponseWriter, r *http.Request) {
 
 	log.Println("GET /api/time")
