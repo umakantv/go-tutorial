@@ -1,6 +1,6 @@
 package domain
 
-// CustomerRepositoryStub serves as the mock implmentation for customer repository.
+// CustomerRepositoryStub serves as the mock implmentation (Adapter) for customer repository (Port).
 // It implements CustomerRepository interface from domain.
 type CustomerRepositoryStub struct {
 	customers []Customer
