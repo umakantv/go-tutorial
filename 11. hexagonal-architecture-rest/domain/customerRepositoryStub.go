@@ -14,7 +14,7 @@ func (crs CustomerRepositoryStub) FindAll() ([]Customer, error) {
 func NewCustomerRepositoryStub() CustomerRepositoryStub {
 	customers := []Customer{
 		{1, "Umakant", "Delhi", "110053", "1998-10-28", "active"},
-		{2, "Umakant", "Delhi", "110053", "1998-10-28", "active"},
+		{2, "Rob", "Delhi", "110053", "1998-10-28", "active"},
 	}
 
 	return CustomerRepositoryStub{
