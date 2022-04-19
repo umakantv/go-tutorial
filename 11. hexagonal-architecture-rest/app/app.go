@@ -6,14 +6,14 @@ import (
 	"log"
 	"net/http"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 )
 
 func Start() {
 
-	customerHandler := CustomerHandlers{
-		service.NewCustomerService(domain.NewCustomerRepositoryStub()),
-	}
+	// customerHandler := CustomerHandlers{service.NewCustomerService(domain.NewCustomerRepositoryStub())}
+	customerHandler := CustomerHandlers{service.NewCustomerService(domain.NewCustomerRepositoryDB())}
 	router := mux.NewRouter()
 
 	// routes
