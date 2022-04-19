@@ -2,6 +2,7 @@ package app
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -33,7 +34,8 @@ func getCurrentTime(w http.ResponseWriter, r *http.Request) {
 
 		if e != nil {
 			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte("invalid timezone"))
+			fmt.Fprintf(w, "invalid timezone %v", tz)
+			// w.Write([]byte("invalid timezone"))
 			log.Println("Error in setting the timezone", e.Error())
 			return
 		}
