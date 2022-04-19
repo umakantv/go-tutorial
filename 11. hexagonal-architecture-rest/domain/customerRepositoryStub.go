@@ -1,6 +1,7 @@
 package domain
 
 // CustomerRepositoryStub serves as the mock implmentation for customer repository.
+// It implements CustomerRepository interface from domain.
 type CustomerRepositoryStub struct {
 	customers []Customer
 }
