@@ -7,6 +7,6 @@ import (
 
 func main() {
 	logger.Info("Starting app on http://localhost:5555")
-	// log.Println("Starting app on http://localhost:5555")
+
 	app.Start()
 }

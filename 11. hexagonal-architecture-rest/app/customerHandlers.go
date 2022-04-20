@@ -2,7 +2,6 @@ package app
 
 import (
 	"customer_api_hex_arch/service"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -17,8 +16,6 @@ func (ch *CustomerHandlers) getAllCustomers(w http.ResponseWriter, r *http.Reque
 
 	status := r.URL.Query().Get("status")
 	c, e := ch.service.GetAllCustomers(status)
-
-	log.Println("Customers received", c)
 
 	if e != nil {
 		writeResponse(w, e.Code, e)

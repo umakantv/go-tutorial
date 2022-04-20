@@ -2,8 +2,8 @@ package domain
 
 import (
 	"customer_api_hex_arch/errs"
+	"customer_api_hex_arch/logger"
 	"database/sql"
-	"log"
 	"time"
 )
 
@@ -28,7 +28,7 @@ func (d CustomerRepositoryDB) FindAll(status string) ([]Customer, *errs.AppError
 	rows, err := d.db.Query(query)
 
 	if err != nil {
-		log.Println("Error in fetching customers", err.Error())
+		logger.Error("Error in fetching customers " + err.Error())
 	}
 
 	var customers []Customer
@@ -38,7 +38,7 @@ func (d CustomerRepositoryDB) FindAll(status string) ([]Customer, *errs.AppError
 		err = rows.Scan(&c.Id, &c.Name, &c.City, &c.Zipcode, &c.Status, &c.DateofBirth)
 
 		if err != nil {
-			log.Println("Error in scanning customers", err.Error())
+			logger.Error("Error in scanning customers " + err.Error())
 			return nil, errs.NewInternalServerError(err.Error())
 		}
 
@@ -59,10 +59,10 @@ func (d CustomerRepositoryDB) ById(id string) (*Customer, *errs.AppError) {
 
 	if err != nil {
 
+		logger.Info("Error in scanning customers for id: " + id + " - " + err.Error())
 		if err == sql.ErrNoRows {
 			return nil, errs.NewNotFoundError("Customer not found")
 		}
-		log.Println("Error in scanning customers for id", id, ":", err.Error())
 		return nil, errs.NewInternalServerError(err.Error())
 	}
 
@@ -75,11 +75,11 @@ func NewCustomerRepositoryDB() CustomerRepositoryDB {
 	// Use process env variables here instead for this
 	db, err := sql.Open("mysql", "root:12345678@/tutorial_banking")
 	if err != nil {
-		log.Println("Error in opening a DB connection", err.Error())
+		logger.Error("Error in opening a DB connection " + err.Error())
 	}
 	err = db.Ping()
 	if err != nil {
-		log.Println("Error in ping to DB connection", err.Error())
+		logger.Error("Error in ping to DB connection " + err.Error())
 	}
 
 	// See "Important settings" section.

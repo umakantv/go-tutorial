@@ -12,8 +12,8 @@ import (
 
 func Start() {
 
-	customerHandler := CustomerHandlers{service.NewCustomerService(domain.NewCustomerRepositoryStub())}
-	// customerHandler := CustomerHandlers{service.NewCustomerService(domain.NewCustomerRepositoryDB())}
+	// customerHandler := CustomerHandlers{service.NewCustomerService(domain.NewCustomerRepositoryStub())}
+	customerHandler := CustomerHandlers{service.NewCustomerService(domain.NewCustomerRepositoryDB())}
 	router := mux.NewRouter()
 
 	// routes
