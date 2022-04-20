@@ -1,5 +1,10 @@
 package domain
 
+import (
+	"errors"
+	"strconv"
+)
+
 // CustomerRepositoryStub serves as the mock implmentation (Adapter) for customer repository (Port).
 // It implements CustomerRepository interface from domain.
 type CustomerRepositoryStub struct {
@@ -8,6 +13,17 @@ type CustomerRepositoryStub struct {
 
 func (crs CustomerRepositoryStub) FindAll() ([]Customer, error) {
 	return crs.customers, nil
+}
+
+func (crs CustomerRepositoryStub) ById(id string) (*Customer, error) {
+
+	for _, c := range crs.customers {
+		if strconv.Itoa(c.Id) == id {
+			return &c, nil
+		}
+	}
+
+	return nil, errors.New("Customer not found")
 }
 
 // NewCustomerRepositoryStub creates and returns a CustomerRepositoryStub

@@ -38,6 +38,22 @@ func (d CustomerRepositoryDB) FindAll() ([]Customer, error) {
 	return customers, nil
 }
 
+func (d CustomerRepositoryDB) ById(id string) (*Customer, error) {
+
+	query := "SELECT * FROM customers where customer_id = ?"
+
+	row := d.db.QueryRow(query, id)
+
+	var c Customer
+	err := row.Scan(&c.Id, &c.Name, &c.City, &c.Zipcode, &c.Status, &c.DateofBirth)
+
+	if err != nil {
+		log.Panic("Error in scanning customers", err.Error())
+	}
+
+	return &c, nil
+}
+
 // NewCustomerRepositoryDB creates and returns a CustomerRepositoryDB
 func NewCustomerRepositoryDB() CustomerRepositoryDB {
 

@@ -14,4 +14,5 @@ type Customer struct {
 // This acts as a Secondary Port for any adapter services that are interested in behaving as a store for customers.
 type CustomerRepository interface {
 	FindAll() ([]Customer, error)
+	ById(string) (*Customer, error)
 }
