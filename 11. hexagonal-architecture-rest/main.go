@@ -2,10 +2,11 @@ package main
 
 import (
 	"customer_api_hex_arch/app"
-	"log"
+	"customer_api_hex_arch/logger"
 )
 
 func main() {
-	log.Println("Starting app on http://localhost:5555")
+	logger.Info("Starting app on http://localhost:5555")
+	// log.Println("Starting app on http://localhost:5555")
 	app.Start()
 }
