@@ -19,7 +19,7 @@ func (d CustomerRepositoryDB) FindAll() ([]Customer, error) {
 	rows, err := d.db.Query(query)
 
 	if err != nil {
-		log.Panic("Error in fetching customers", err.Error())
+		log.Println("Error in fetching customers", err.Error())
 	}
 
 	var customers []Customer
@@ -29,7 +29,8 @@ func (d CustomerRepositoryDB) FindAll() ([]Customer, error) {
 		err = rows.Scan(&c.Id, &c.Name, &c.City, &c.Zipcode, &c.Status, &c.DateofBirth)
 
 		if err != nil {
-			log.Panic("Error in scanning customers", err.Error())
+			log.Println("Error in scanning customers", err.Error())
+			return nil, err
 		}
 
 		customers = append(customers, c)
@@ -48,7 +49,8 @@ func (d CustomerRepositoryDB) ById(id string) (*Customer, error) {
 	err := row.Scan(&c.Id, &c.Name, &c.City, &c.Zipcode, &c.Status, &c.DateofBirth)
 
 	if err != nil {
-		log.Panic("Error in scanning customers", err.Error())
+		log.Println("Error in scanning customers", err.Error())
+		return nil, err
 	}
 
 	return &c, nil
@@ -60,11 +62,11 @@ func NewCustomerRepositoryDB() CustomerRepositoryDB {
 	// Use process env variables here instead for this
 	db, err := sql.Open("mysql", "root:12345678@/tutorial_banking")
 	if err != nil {
-		log.Panic("Error in opening a DB connection", err.Error())
+		log.Println("Error in opening a DB connection", err.Error())
 	}
 	err = db.Ping()
 	if err != nil {
-		log.Panic("Error in ping to DB connection", err.Error())
+		log.Println("Error in ping to DB connection", err.Error())
 	}
 
 	// See "Important settings" section.
