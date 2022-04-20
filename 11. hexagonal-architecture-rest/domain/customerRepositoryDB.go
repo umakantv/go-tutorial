@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"customer_api_hex_arch/errs"
 	"database/sql"
 	"log"
 	"time"
@@ -12,7 +13,7 @@ type CustomerRepositoryDB struct {
 	db *sql.DB
 }
 
-func (d CustomerRepositoryDB) FindAll() ([]Customer, error) {
+func (d CustomerRepositoryDB) FindAll() ([]Customer, *errs.AppError) {
 
 	query := "SELECT * FROM customers"
 
@@ -30,7 +31,7 @@ func (d CustomerRepositoryDB) FindAll() ([]Customer, error) {
 
 		if err != nil {
 			log.Println("Error in scanning customers", err.Error())
-			return nil, err
+			return nil, errs.NewInternalServerError(err.Error())
 		}
 
 		customers = append(customers, c)
@@ -39,7 +40,7 @@ func (d CustomerRepositoryDB) FindAll() ([]Customer, error) {
 	return customers, nil
 }
 
-func (d CustomerRepositoryDB) ById(id string) (*Customer, error) {
+func (d CustomerRepositoryDB) ById(id string) (*Customer, *errs.AppError) {
 
 	query := "SELECT * FROM customers where customer_id = ?"
 
@@ -49,8 +50,12 @@ func (d CustomerRepositoryDB) ById(id string) (*Customer, error) {
 	err := row.Scan(&c.Id, &c.Name, &c.City, &c.Zipcode, &c.Status, &c.DateofBirth)
 
 	if err != nil {
-		log.Println("Error in scanning customers", err.Error())
-		return nil, err
+
+		if err == sql.ErrNoRows {
+			return nil, errs.NewNotFoundError("Customer not found")
+		}
+		log.Println("Error in scanning customers for id", id, ":", err.Error())
+		return nil, errs.NewInternalServerError(err.Error())
 	}
 
 	return &c, nil

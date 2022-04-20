@@ -1,5 +1,7 @@
 package domain
 
+import "customer_api_hex_arch/errs"
+
 // Customer type represents the customer data.
 type Customer struct {
 	Id          int
@@ -13,6 +15,6 @@ type Customer struct {
 // CustomerRepository is an interface for implementing store dependencies.
 // This acts as a Secondary Port for any adapter services that are interested in behaving as a store for customers.
 type CustomerRepository interface {
-	FindAll() ([]Customer, error)
-	ById(string) (*Customer, error)
+	FindAll() ([]Customer, *errs.AppError)
+	ById(string) (*Customer, *errs.AppError)
 }

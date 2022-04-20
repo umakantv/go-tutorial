@@ -16,12 +16,12 @@ type CustomerHandlers struct {
 func (ch *CustomerHandlers) getAllCustomers(w http.ResponseWriter, r *http.Request) {
 	c, e := ch.service.GetAllCustomers()
 
-	if e != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(e.Error()))
-	}
-
 	w.Header().Add("Content-Type", "application/json")
+	if e != nil {
+		w.WriteHeader(e.Code)
+		json.NewEncoder(w).Encode(e)
+		return
+	}
 	json.NewEncoder(w).Encode(c)
 }
 
@@ -29,11 +29,12 @@ func (ch *CustomerHandlers) GetCustomerById(w http.ResponseWriter, r *http.Reque
 	vars := mux.Vars(r)
 	c, e := ch.service.GetCustomerById(vars["customer_id"])
 
+	w.Header().Add("Content-Type", "application/json")
 	if e != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(e.Error()))
+		w.WriteHeader(e.Code)
+		json.NewEncoder(w).Encode(e)
+		return
 	}
 
-	w.Header().Add("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(c)
 }

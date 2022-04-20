@@ -1,12 +1,15 @@
 package service
 
-import "customer_api_hex_arch/domain"
+import (
+	"customer_api_hex_arch/domain"
+	"customer_api_hex_arch/errs"
+)
 
 // CustomerService defines the interface for Customer Service.
 // It acts as a port for REST API adapter that communicates with our application/business/domain.
 type CustomerService interface {
-	GetAllCustomers() ([]domain.Customer, error)
-	GetCustomerById(string) (*domain.Customer, error)
+	GetAllCustomers() ([]domain.Customer, *errs.AppError)
+	GetCustomerById(string) (*domain.Customer, *errs.AppError)
 }
 
 // DefaultCustomerService implements CustomerService.
@@ -17,12 +20,12 @@ type DefaultCustomerService struct {
 }
 
 // GetAllCustomers fetches and returns All customers from the repository.
-func (s DefaultCustomerService) GetAllCustomers() ([]domain.Customer, error) {
+func (s DefaultCustomerService) GetAllCustomers() ([]domain.Customer, *errs.AppError) {
 	return s.repo.FindAll()
 }
 
 // GetCustomerById fetches and returns a single customer by id from the repository.
-func (s DefaultCustomerService) GetCustomerById(id string) (*domain.Customer, error) {
+func (s DefaultCustomerService) GetCustomerById(id string) (*domain.Customer, *errs.AppError) {
 	return s.repo.ById(id)
 }
 
