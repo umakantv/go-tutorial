@@ -19,7 +19,7 @@ func (ch *CustomerHandlers) getAllCustomers(w http.ResponseWriter, r *http.Reque
 		writeResponse(w, e.Code, e)
 		return
 	}
-	writeResponse(w, e.Code, c)
+	writeResponse(w, http.StatusOK, c)
 }
 
 func (ch *CustomerHandlers) GetCustomerById(w http.ResponseWriter, r *http.Request) {
@@ -30,5 +30,5 @@ func (ch *CustomerHandlers) GetCustomerById(w http.ResponseWriter, r *http.Reque
 		writeResponse(w, e.Code, e)
 		return
 	}
-	writeResponse(w, e.Code, c)
+	writeResponse(w, http.StatusOK, c)
 }
