@@ -18,6 +18,7 @@ func Start() {
 
 	// routes
 	router.HandleFunc("/api/customers", customerHandler.getAllCustomers)
+	router.HandleFunc("/api/customers/{customer_id:[0-9]+}", customerHandler.GetCustomerById)
 
 	log.Fatal(http.ListenAndServe("localhost:5555", router))
 }
