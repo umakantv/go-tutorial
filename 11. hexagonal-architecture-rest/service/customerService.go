@@ -6,6 +6,7 @@ import "customer_api_hex_arch/domain"
 // It acts as a port for REST API adapter that communicates with our application/business/domain.
 type CustomerService interface {
 	GetAllCustomers() ([]domain.Customer, error)
+	GetCustomerById(string) (*domain.Customer, error)
 }
 
 // DefaultCustomerService implements CustomerService.
@@ -18,6 +19,11 @@ type DefaultCustomerService struct {
 // GetAllCustomers fetches and returns All customers from the repository.
 func (s DefaultCustomerService) GetAllCustomers() ([]domain.Customer, error) {
 	return s.repo.FindAll()
+}
+
+// GetCustomerById fetches and returns a single customer by id from the repository.
+func (s DefaultCustomerService) GetCustomerById(id string) (*domain.Customer, error) {
+	return s.repo.ById(id)
 }
 
 // NewCustomerService creates and returns a CustomerService.
