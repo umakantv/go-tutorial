@@ -4,11 +4,11 @@ import "customer_api_hex_arch/errs"
 
 // Customer type represents the customer data.
 type Customer struct {
-	Id          int
+	Id          int `db:"customer_id"`
 	Name        string
 	City        string
 	Zipcode     string
-	DateofBirth string
+	DateofBirth string `db:"date_of_birth"`
 	Status      string // whether active or inactive
 }
 
