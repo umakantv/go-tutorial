@@ -15,6 +15,6 @@ type Customer struct {
 // CustomerRepository is an interface for implementing store dependencies.
 // This acts as a Secondary Port for any adapter services that are interested in behaving as a store for customers.
 type CustomerRepository interface {
-	FindAll() ([]Customer, *errs.AppError)
+	FindAll(status string) ([]Customer, *errs.AppError)
 	ById(string) (*Customer, *errs.AppError)
 }

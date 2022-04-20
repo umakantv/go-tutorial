@@ -2,6 +2,7 @@ package app
 
 import (
 	"customer_api_hex_arch/service"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -13,7 +14,11 @@ type CustomerHandlers struct {
 }
 
 func (ch *CustomerHandlers) getAllCustomers(w http.ResponseWriter, r *http.Request) {
-	c, e := ch.service.GetAllCustomers()
+
+	status := r.URL.Query().Get("status")
+	c, e := ch.service.GetAllCustomers(status)
+
+	log.Println("Customers received", c)
 
 	if e != nil {
 		writeResponse(w, e.Code, e)

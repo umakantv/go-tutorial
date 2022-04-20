@@ -8,7 +8,7 @@ import (
 // CustomerService defines the interface for Customer Service.
 // It acts as a port for REST API adapter that communicates with our application/business/domain.
 type CustomerService interface {
-	GetAllCustomers() ([]domain.Customer, *errs.AppError)
+	GetAllCustomers(status string) ([]domain.Customer, *errs.AppError)
 	GetCustomerById(string) (*domain.Customer, *errs.AppError)
 }
 
@@ -20,8 +20,8 @@ type DefaultCustomerService struct {
 }
 
 // GetAllCustomers fetches and returns All customers from the repository.
-func (s DefaultCustomerService) GetAllCustomers() ([]domain.Customer, *errs.AppError) {
-	return s.repo.FindAll()
+func (s DefaultCustomerService) GetAllCustomers(status string) ([]domain.Customer, *errs.AppError) {
+	return s.repo.FindAll(status)
 }
 
 // GetCustomerById fetches and returns a single customer by id from the repository.

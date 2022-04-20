@@ -13,9 +13,17 @@ type CustomerRepositoryDB struct {
 	db *sql.DB
 }
 
-func (d CustomerRepositoryDB) FindAll() ([]Customer, *errs.AppError) {
+func (d CustomerRepositoryDB) FindAll(status string) ([]Customer, *errs.AppError) {
 
 	query := "SELECT * FROM customers"
+
+	if status == "active" {
+		query = "SELECT * FROM customers where status = 1"
+	} else if status == "inactive" {
+		query = "SELECT * FROM customers where status = 0"
+	}
+
+	// fmt.Println(query)
 
 	rows, err := d.db.Query(query)
 
