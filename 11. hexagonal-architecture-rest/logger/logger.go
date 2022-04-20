@@ -1,12 +1,25 @@
 package logger
 
-import "go.uber.org/zap"
+import (
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+)
 
 var log *zap.Logger
 
 func init() {
 	var err error
-	log, err = zap.NewProduction(zap.AddCallerSkip(1))
+
+	eConfig := zap.NewProductionEncoderConfig()
+	eConfig.CallerKey = "file_name"
+	eConfig.TimeKey = "timestamp"
+	eConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+
+	config := zap.NewProductionConfig()
+	config.EncoderConfig = eConfig
+
+	// log, err = zap.NewProduction(zap.AddCallerSkip(1))
+	log, err = config.Build(zap.AddCallerSkip(1))
 
 	if err != nil {
 		panic(err)
