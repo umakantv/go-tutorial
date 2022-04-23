@@ -12,8 +12,10 @@ import (
 
 func Start() {
 
-	// customerHandler := CustomerHandlers{service.NewCustomerService(domain.NewCustomerRepositoryStub())}
-	customerHandler := CustomerHandlers{service.NewCustomerService(domain.NewCustomerRepositoryDB())}
+	dbClient := domain.GetDBConnection()
+	customerRepo := domain.NewCustomerRepositoryDB(dbClient)
+	customerHandler := CustomerHandlers{service.NewCustomerService(customerRepo)}
+
 	router := mux.NewRouter()
 
 	// routes

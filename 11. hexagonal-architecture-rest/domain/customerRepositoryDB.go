@@ -4,7 +4,6 @@ import (
 	"customer_api_hex_arch/errs"
 	"customer_api_hex_arch/logger"
 	"database/sql"
-	"time"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -47,29 +46,15 @@ func (d CustomerRepositoryDB) ById(id string) (*Customer, *errs.AppError) {
 		if err == sql.ErrNoRows {
 			return nil, errs.NewNotFoundError("Customer not found")
 		}
-		return nil, errs.NewInternalServerError(err.Error())
+		return nil, errs.NewInternalServerError("Unexpected error: " + err.Error())
 	}
 
 	return &c, nil
 }
 
 // NewCustomerRepositoryDB creates and returns a CustomerRepositoryDB
-func NewCustomerRepositoryDB() CustomerRepositoryDB {
+func NewCustomerRepositoryDB(db *sqlx.DB) CustomerRepositoryDB {
 
-	// Use process env variables here instead for this
-	db, err := sqlx.Open("mysql", "root:12345678@/tutorial_banking")
-	if err != nil {
-		logger.Error("Error in opening a DB connection " + err.Error())
-	}
-	err = db.Ping()
-	if err != nil {
-		logger.Error("Error in ping to DB connection " + err.Error())
-	}
-
-	// See "Important settings" section.
-	db.SetConnMaxLifetime(time.Minute * 3)
-	db.SetMaxOpenConns(10)
-	db.SetMaxIdleConns(10)
 	return CustomerRepositoryDB{
 		db,
 	}
