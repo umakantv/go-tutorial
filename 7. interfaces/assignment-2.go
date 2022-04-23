@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func main() {
+func RunAssignment1() {
 
 	file, err := os.Open(os.Args[1])
 

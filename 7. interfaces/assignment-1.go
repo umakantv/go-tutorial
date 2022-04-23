@@ -30,7 +30,7 @@ func printArea(s shape) {
 	fmt.Println(s.getArea())
 }
 
-func main() {
+func RunAssignment2() {
 	sq := square{2.}
 	tr := triangle{2., 5.}
 
