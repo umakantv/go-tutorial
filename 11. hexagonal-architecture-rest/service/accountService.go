@@ -18,7 +18,7 @@ type DefaultAccountService struct {
 func (s DefaultAccountService) NewAccount(a dto.NewAccountRequest) (*dto.NewAccountResponse, *errs.AppError) {
 	newAccount, err := s.repo.NewAccount(domain.Account{
 		AccountId:   "", // will be set later
-		CustomerID:  a.CustomerID,
+		CustomerID:  a.CustomerId,
 		OpeningDate: time.Now().Format("2006-01-02 15:04:05"),
 		AccountType: a.AccountType,
 		Amount:      a.Amount,
