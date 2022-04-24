@@ -38,7 +38,7 @@ func (ah *AccountHandlers) createNewAccount(w http.ResponseWriter, r *http.Reque
 		writeResponse(w, e.Code, e)
 		return
 	} else {
-		writeResponse(w, http.StatusOK, account)
+		writeResponse(w, http.StatusCreated, account)
 	}
 }
 
