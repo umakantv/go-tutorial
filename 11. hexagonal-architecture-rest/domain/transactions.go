@@ -1,13 +1,22 @@
 package domain
 
-import "customer_api_hex_arch/errs"
+import (
+	"customer_api_hex_arch/dto"
+	"customer_api_hex_arch/errs"
+)
 
 type Transaction struct {
 	TransactionId   string  `db:"transaction_id"`
-	AccountId       string  `db:"account_id"`
+	AccountId       int     `db:"account_id"`
 	Amount          float64 `db:"amount"`
 	TransactionType string  `db:"transaction_type"`
 	TransactionDate string  `db:"transaction_date"`
+}
+
+func (t Transaction) ToTransactionResponseDto() dto.TransactionResponseDto {
+	return dto.TransactionResponseDto{
+		TransactionId: t.TransactionId,
+	}
 }
 
 type TransactionRepository interface {
