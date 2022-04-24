@@ -1,0 +1,15 @@
+package domain
+
+import "customer_api_hex_arch/errs"
+
+type Transaction struct {
+	TransactionId   string  `db:"transaction_id"`
+	AccountId       string  `db:"account_id"`
+	Amount          float64 `db:"amount"`
+	TransactionType string  `db:"transaction_type"`
+	TransactionDate string  `db:"transaction_date"`
+}
+
+type TransactionRepository interface {
+	NewTransaction(Transaction) (*Transaction, *errs.AppError)
+}
