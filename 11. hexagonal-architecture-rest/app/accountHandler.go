@@ -23,14 +23,14 @@ func (ah *AccountHandlers) createNewAccount(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
+	vars := mux.Vars(r)
+	request.CustomerId = vars["customer_id"]
+
 	e := request.Validate()
 	if e != nil {
 		writeResponse(w, e.Code, e)
 		return
 	}
-
-	vars := mux.Vars(r)
-	request.CustomerId = vars["customer_id"]
 
 	account, e := ah.service.NewAccount(request)
 

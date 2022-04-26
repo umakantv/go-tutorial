@@ -33,14 +33,14 @@ func (r AccountRepositoryDB) NewAccount(a Account) (*Account, *errs.AppError) {
 }
 
 func (r AccountRepositoryDB) ChangeAmountWithTransaction(t Transaction) *errs.AppError {
-	insert_query := "UPDATE accounts SET amount = amount + ? where account_id = 12"
+	insert_query := "UPDATE accounts SET amount = amount + ? where account_id = ?"
 
 	var result sql.Result
 	var err error
 	if t.TransactionType == "deposit" {
-		result, err = r.client.Exec(insert_query, t.Amount)
+		result, err = r.client.Exec(insert_query, t.Amount, t.AccountId)
 	} else {
-		result, err = r.client.Exec(insert_query, -t.Amount)
+		result, err = r.client.Exec(insert_query, -t.Amount, t.AccountId)
 	}
 
 	if err != nil {

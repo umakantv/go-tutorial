@@ -39,3 +39,13 @@ func (ts DefaultTransactionService) NewTransaction(tr dto.TransactionRequestDto)
 
 	return &res, nil
 }
+
+func NewTransactionService(
+	transactionRepo domain.TransactionRepository,
+	accountRepo domain.AccountRepository,
+) DefaultTransactionService {
+	return DefaultTransactionService{
+		transactionRepo: transactionRepo,
+		accountRepo:     accountRepo,
+	}
+}

@@ -15,17 +15,20 @@ func Start() {
 	dbClient := domain.GetDBConnection()
 	customerRepo := domain.NewCustomerRepositoryDB(dbClient)
 	accountRepo := domain.NewAccountRepositoryDB(dbClient)
+	transactionRepo := domain.NewTransactionRepositoryDB(dbClient)
 
-	customerHandler := CustomerHandlers{service.NewCustomerService(customerRepo)}
-	accountHandlers := AccountHandlers{service.NewAccountService(accountRepo)}
+	ch := CustomerHandlers{service.NewCustomerService(customerRepo)}
+	ah := AccountHandlers{service.NewAccountService(accountRepo)}
+	th := TransactionHandler{service.NewTransactionService(transactionRepo, accountRepo)}
 
 	router := mux.NewRouter()
 
 	// routes
-	router.HandleFunc("/api/customers", customerHandler.getAllCustomers)
-	router.HandleFunc("/api/customers/{customer_id:[0-9]+}", customerHandler.GetCustomerById)
+	router.HandleFunc("/api/customers", ch.getAllCustomers)
+	router.HandleFunc("/api/customers/{customer_id:[0-9]+}", ch.GetCustomerById)
 
-	router.HandleFunc("/api/customers/{customer_id:[0-9]+}/account", accountHandlers.createNewAccount).Methods(http.MethodPost)
+	router.HandleFunc("/api/customers/{customer_id:[0-9]+}/account", ah.createNewAccount).Methods(http.MethodPost)
+	router.HandleFunc("/api/customers/{customer_id:[0-9]+}/account/{account_id:[0-9]+}/transaction", th.addNewTransaction).Methods(http.MethodPost)
 
 	log.Fatal(http.ListenAndServe("localhost:5555", router))
 }

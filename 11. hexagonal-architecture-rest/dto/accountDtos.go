@@ -22,8 +22,7 @@ func (r NewAccountResponse) Debug() {
 func (r NewAccountRequest) Validate() *errs.AppError {
 	if r.Amount < 5000 {
 		return errs.NewValidationError("initial amount must be atleast 5000.00")
-	}
-	if r.AccountType != "saving" && r.AccountType != "checking" {
+	} else if r.AccountType != "saving" && r.AccountType != "checking" {
 		return errs.NewValidationError("account type must be saving or checking")
 	}
 	return nil
