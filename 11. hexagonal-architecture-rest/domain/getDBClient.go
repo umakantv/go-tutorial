@@ -2,15 +2,25 @@ package domain
 
 import (
 	"customer_api_hex_arch/logger"
+	"fmt"
 	"time"
 
 	"github.com/jmoiron/sqlx"
 )
 
-func GetDBConnection() *sqlx.DB {
+type DatabaseConfig struct {
+	DRIVER   string
+	HOST     string
+	PORT     string
+	USER     string
+	PASSWORD string
+	DB       string
+}
+
+func GetDBConnection(dbConfig DatabaseConfig) *sqlx.DB {
 
 	// Use process env variables here instead for this
-	db, err := sqlx.Open("mysql", "root:12345678@/tutorial_banking")
+	db, err := sqlx.Open(dbConfig.DRIVER, fmt.Sprintf("%v:%v@/%v", dbConfig.USER, dbConfig.PASSWORD, dbConfig.DB))
 	if err != nil {
 		logger.Error("Error in opening a DB connection " + err.Error())
 	}

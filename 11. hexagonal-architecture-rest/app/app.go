@@ -2,6 +2,7 @@ package app
 
 import (
 	"customer_api_hex_arch/domain"
+	"customer_api_hex_arch/logger"
 	"customer_api_hex_arch/service"
 	"log"
 	"net/http"
@@ -10,9 +11,16 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var config Config
+
+func init() {
+	LoadConfig(&config)
+	logger.Init(config.Logger)
+}
+
 func Start() {
 
-	dbClient := domain.GetDBConnection()
+	dbClient := domain.GetDBConnection(config.Database)
 	customerRepo := domain.NewCustomerRepositoryDB(dbClient)
 	accountRepo := domain.NewAccountRepositoryDB(dbClient)
 	transactionRepo := domain.NewTransactionRepositoryDB(dbClient)
