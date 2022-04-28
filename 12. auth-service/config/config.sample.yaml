@@ -1,0 +1,14 @@
+
+database:
+  DRIVER: "mysql" 
+  HOST: "localhost"
+  PORT: "3306"
+  USER: "root"
+  PASSWORD: "12345678"
+  DB: "tutorial_banking"
+
+
+logger:
+  CallerKey: "file_name"
+  TimeKey: "timestamp"
+  CallerSkip: 1
