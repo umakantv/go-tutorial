@@ -1,11 +1,18 @@
 package app
 
 import (
+	"auth/db"
+	"auth/domain"
+	"auth/handlers"
 	"auth/logger"
+	"auth/service"
+	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var config Config
@@ -17,11 +24,22 @@ func init() {
 
 func Start() {
 
-	// dbClient := db.GetDBConnection(config.Database)
-
+	dbClient := db.GetDBConnection(config.Database)
 	router := mux.NewRouter()
+	authRepository := domain.NewAuthRepository(dbClient)
+	ah := handlers.AuthHandler{
+		Service: service.NewLoginService(authRepository, domain.GetRolePermissions()),
+	}
 
-	// routes
+	router.HandleFunc("/auth/login", ah.Login).Methods(http.MethodPost)
+	router.HandleFunc("/auth/register", ah.NotImplementedHandler).Methods(http.MethodPost)
+	router.HandleFunc("/auth/refresh", ah.Refresh).Methods(http.MethodPost)
+	router.HandleFunc("/auth/verify", ah.Verify).Methods(http.MethodGet)
 
-	log.Fatal(http.ListenAndServe("localhost:5555", router))
+	address := config.App.HOST
+	port := config.App.PORT
+
+	logger.Info(fmt.Sprintf("Starting OAuth server on %s:%s ...", address, port))
+
+	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%s", address, port), router))
 }

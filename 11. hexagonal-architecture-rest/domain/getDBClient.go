@@ -19,6 +19,7 @@ type DatabaseConfig struct {
 
 func GetDBConnection(dbConfig DatabaseConfig) *sqlx.DB {
 
+	fmt.Printf(dbConfig.DRIVER)
 	db, err := sqlx.Open(dbConfig.DRIVER, fmt.Sprintf("%v:%v@/%v", dbConfig.USER, dbConfig.PASSWORD, dbConfig.DB))
 	if err != nil {
 		logger.Error("Error in opening a DB connection " + err.Error())

@@ -3,6 +3,9 @@ module auth
 go 1.18
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/go-sql-driver/mysql v1.7.0
+	github.com/gorilla/mux v1.8.0
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/spf13/viper v1.11.0
 	go.uber.org/zap v1.21.0
@@ -10,7 +13,6 @@ require (
 
 require (
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
-	github.com/gorilla/mux v1.8.0
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
