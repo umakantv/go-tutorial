@@ -1,7 +1,8 @@
-package app
+package handlers
 
 import (
 	"customer_api_hex_arch/dto"
+	"customer_api_hex_arch/logger"
 	"customer_api_hex_arch/service"
 	"encoding/json"
 	"net/http"
@@ -10,10 +11,10 @@ import (
 )
 
 type TransactionHandler struct {
-	service service.TransactionService
+	Service service.TransactionService
 }
 
-func (th *TransactionHandler) addNewTransaction(w http.ResponseWriter, r *http.Request) {
+func (th *TransactionHandler) AddNewTransaction(w http.ResponseWriter, r *http.Request) {
 	var requestDto dto.TransactionRequestDto
 	err := json.NewDecoder(r.Body).Decode(&requestDto)
 
@@ -25,12 +26,14 @@ func (th *TransactionHandler) addNewTransaction(w http.ResponseWriter, r *http.R
 	vars := mux.Vars(r)
 	requestDto.AccountId = vars["account_id"]
 
+	logger.Info("Create Account Request", logger.Any("input", requestDto))
+
 	e := requestDto.Validate()
 	if e != nil {
 		writeResponse(w, e.Code, e)
 		return
 	}
-	res, e := th.service.NewTransaction(requestDto)
+	res, e := th.Service.NewTransaction(requestDto)
 
 	if e != nil {
 		writeResponse(w, http.StatusBadRequest, err)

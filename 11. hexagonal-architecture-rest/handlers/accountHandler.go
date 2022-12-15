@@ -1,7 +1,8 @@
-package app
+package handlers
 
 import (
 	"customer_api_hex_arch/dto"
+	"customer_api_hex_arch/logger"
 	"customer_api_hex_arch/service"
 	"encoding/json"
 	"net/http"
@@ -11,12 +12,12 @@ import (
 
 // CustomerHandlers acts as the adapter for REST client.
 type AccountHandlers struct {
-	service service.AccountService
+	Service service.AccountService
 }
 
-func (ah *AccountHandlers) createNewAccount(w http.ResponseWriter, r *http.Request) {
-	var request dto.NewAccountRequest
-	err := json.NewDecoder(r.Body).Decode(&request)
+func (ah *AccountHandlers) CreateNewAccount(w http.ResponseWriter, r *http.Request) {
+	var requestDto dto.NewAccountRequest
+	err := json.NewDecoder(r.Body).Decode(&requestDto)
 
 	if err != nil {
 		writeResponse(w, http.StatusBadRequest, err.Error())
@@ -24,15 +25,17 @@ func (ah *AccountHandlers) createNewAccount(w http.ResponseWriter, r *http.Reque
 	}
 
 	vars := mux.Vars(r)
-	request.CustomerId = vars["customer_id"]
+	requestDto.CustomerId = vars["customer_id"]
 
-	e := request.Validate()
+	logger.Info("Create Account Request", logger.Any("input", requestDto))
+
+	e := requestDto.Validate()
 	if e != nil {
 		writeResponse(w, e.Code, e)
 		return
 	}
 
-	account, e := ah.service.NewAccount(request)
+	account, e := ah.Service.NewAccount(requestDto)
 
 	if e != nil {
 		writeResponse(w, e.Code, e)

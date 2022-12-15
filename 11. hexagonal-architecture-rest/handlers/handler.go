@@ -1,4 +1,4 @@
-package app
+package handlers
 
 import (
 	"customer_api_hex_arch/logger"

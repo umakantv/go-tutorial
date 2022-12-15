@@ -42,7 +42,7 @@ func (d CustomerRepositoryDB) ById(id string) (*Customer, *errs.AppError) {
 	err := d.db.Get(&c, query, id)
 
 	if err != nil {
-		logger.Info("Error in scanning customers for id: " + id + " - " + err.Error())
+		logger.Info("Error in scanning customers")
 		if err == sql.ErrNoRows {
 			return nil, errs.NewNotFoundError("Customer not found")
 		}
