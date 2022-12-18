@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	logger.Info("Starting app on http://localhost:5555")
+	logger.Info("Starting app on the given port")
 
 	app.Start()
 }

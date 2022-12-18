@@ -43,8 +43,9 @@ func LoadConfig(config *Config) {
 
 	v.Unmarshal(&config)
 
-	port := os.Getenv("SERVER_PORT")
-	config.App.PORT = port
+	if os.Getenv("SERVER_PORT") != "" {
+		config.App.PORT = os.Getenv("SERVER_PORT")
+	}
 
 	// fmt.Println("Config:", *config)
 	// fmt.Println("Config.Database.DB:", config.Database.DB)
