@@ -1,9 +1,10 @@
 package handlers
 
 import (
-	"customer_api_hex_arch/logger"
 	"encoding/json"
 	"net/http"
+
+	"github.com/umakantv/go-utils/logger"
 )
 
 func writeResponse(w http.ResponseWriter, code int, data interface{}) {

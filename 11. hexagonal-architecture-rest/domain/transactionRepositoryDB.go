@@ -1,8 +1,9 @@
 package domain
 
 import (
-	"customer_api_hex_arch/errs"
 	"strconv"
+
+	"github.com/umakantv/go-utils/errs"
 
 	"github.com/jmoiron/sqlx"
 )

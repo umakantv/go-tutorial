@@ -1,8 +1,9 @@
 package main
 
 import (
-	"customer_api_hex_arch/app"
-	"customer_api_hex_arch/logger"
+	"customer-account-service/app"
+
+	"github.com/umakantv/go-utils/logger"
 )
 
 func main() {

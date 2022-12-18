@@ -1,4 +1,4 @@
-module customer_api_hex_arch
+module customer-account-service
 
 go 1.18
 
@@ -7,7 +7,8 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/spf13/viper v1.11.0
-	go.uber.org/zap v1.21.0
+	github.com/umakantv/go-utils v0.0.0-20221218070414-24a97607a1aa
+	go.uber.org/zap v1.24.0
 )
 
 require (
@@ -28,5 +29,5 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/ini.v1 v1.66.4 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

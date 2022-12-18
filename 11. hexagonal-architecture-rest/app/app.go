@@ -1,12 +1,14 @@
 package app
 
 import (
-	"customer_api_hex_arch/domain"
-	"customer_api_hex_arch/handlers"
-	"customer_api_hex_arch/logger"
-	"customer_api_hex_arch/service"
+	"customer-account-service/domain"
+	"customer-account-service/handlers"
+	"customer-account-service/service"
 	"log"
 	"net/http"
+
+	"github.com/umakantv/go-utils/db"
+	"github.com/umakantv/go-utils/logger"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
@@ -21,7 +23,7 @@ func init() {
 
 func Start() {
 
-	dbClient := domain.GetDBConnection(config.Database)
+	dbClient := db.GetDBConnection(config.Database)
 	customerRepo := domain.NewCustomerRepositoryDB(dbClient)
 	accountRepo := domain.NewAccountRepositoryDB(dbClient)
 	transactionRepo := domain.NewTransactionRepositoryDB(dbClient)

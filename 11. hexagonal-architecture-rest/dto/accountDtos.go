@@ -1,8 +1,9 @@
 package dto
 
 import (
-	"customer_api_hex_arch/errs"
 	"log"
+
+	"github.com/umakantv/go-utils/errs"
 )
 
 type NewAccountRequest struct {

@@ -1,11 +1,12 @@
 package handlers
 
 import (
-	"customer_api_hex_arch/dto"
-	"customer_api_hex_arch/logger"
-	"customer_api_hex_arch/service"
+	"customer-account-service/dto"
+	"customer-account-service/service"
 	"encoding/json"
 	"net/http"
+
+	"github.com/umakantv/go-utils/logger"
 
 	"github.com/gorilla/mux"
 )

@@ -1,15 +1,16 @@
 package app
 
 import (
-	"customer_api_hex_arch/domain"
-	"customer_api_hex_arch/logger"
 	"log"
+
+	"github.com/umakantv/go-utils/db"
+	"github.com/umakantv/go-utils/logger"
 
 	"github.com/spf13/viper"
 )
 
 type Config struct {
-	Database domain.DatabaseConfig
+	Database db.DatabaseConfig
 	Logger   logger.LoggerConfig
 }
 

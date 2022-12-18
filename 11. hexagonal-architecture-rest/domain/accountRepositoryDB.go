@@ -1,10 +1,12 @@
 package domain
 
 import (
-	"customer_api_hex_arch/errs"
-	"customer_api_hex_arch/logger"
 	"database/sql"
 	"strconv"
+
+	"github.com/umakantv/go-utils/errs"
+
+	"github.com/umakantv/go-utils/logger"
 
 	"github.com/jmoiron/sqlx"
 )

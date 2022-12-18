@@ -1,9 +1,10 @@
 package domain
 
 import (
-	"customer_api_hex_arch/errs"
 	"fmt"
 	"strconv"
+
+	"github.com/umakantv/go-utils/errs"
 )
 
 // CustomerRepositoryStub serves as the mock implmentation (Adapter) for customer repository (Port).

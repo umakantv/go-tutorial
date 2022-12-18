@@ -1,8 +1,9 @@
 package domain
 
 import (
-	"customer_api_hex_arch/dto"
-	"customer_api_hex_arch/errs"
+	"customer-account-service/dto"
+
+	"github.com/umakantv/go-utils/errs"
 )
 
 // Customer type represents the customer data.

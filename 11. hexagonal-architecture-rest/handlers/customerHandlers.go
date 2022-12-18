@@ -1,8 +1,9 @@
 package handlers
 
 import (
-	"customer_api_hex_arch/logger"
-	"customer_api_hex_arch/service"
+	"customer-account-service/service"
+
+	"github.com/umakantv/go-utils/logger"
 
 	"net/http"
 

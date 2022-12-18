@@ -1,6 +1,6 @@
 package dto
 
-import "customer_api_hex_arch/errs"
+import "github.com/umakantv/go-utils/errs"
 
 type TransactionRequestDto struct {
 	AccountId       string  `json:"account_id"`

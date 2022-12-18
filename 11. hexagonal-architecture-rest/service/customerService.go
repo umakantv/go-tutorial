@@ -1,10 +1,12 @@
 package service
 
 import (
-	"customer_api_hex_arch/domain"
-	"customer_api_hex_arch/dto"
-	"customer_api_hex_arch/errs"
-	"customer_api_hex_arch/logger"
+	"customer-account-service/domain"
+	"customer-account-service/dto"
+
+	"github.com/umakantv/go-utils/errs"
+
+	"github.com/umakantv/go-utils/logger"
 )
 
 // CustomerService defines the interface for Customer Service.
