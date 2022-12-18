@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"auth/dto"
-	"auth/logger"
 	"auth/service"
 	"encoding/json"
 	"net/http"
+
+	"github.com/umakantv/go-utils/logger"
 )
 
 type AuthHandler struct {

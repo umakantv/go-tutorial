@@ -1,9 +1,11 @@
 package domain
 
 import (
-	"auth/errs"
-	"auth/logger"
 	"database/sql"
+
+	"github.com/umakantv/go-utils/errs"
+
+	"github.com/umakantv/go-utils/logger"
 
 	"github.com/jmoiron/sqlx"
 )

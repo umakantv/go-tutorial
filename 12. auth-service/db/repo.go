@@ -1,9 +1,10 @@
 package db
 
 import (
-	"auth/logger"
 	"fmt"
 	"time"
+
+	"github.com/umakantv/go-utils/logger"
 
 	"github.com/jmoiron/sqlx"
 )

@@ -1,14 +1,16 @@
 package app
 
 import (
-	"auth/db"
 	"auth/domain"
 	"auth/handlers"
-	"auth/logger"
 	"auth/service"
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/umakantv/go-utils/db"
+
+	"github.com/umakantv/go-utils/logger"
 
 	"github.com/gorilla/mux"
 

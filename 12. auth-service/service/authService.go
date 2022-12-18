@@ -3,9 +3,11 @@ package service
 import (
 	"auth/domain"
 	"auth/dto"
-	"auth/errs"
-	"auth/logger"
 	"fmt"
+
+	"github.com/umakantv/go-utils/errs"
+
+	"github.com/umakantv/go-utils/logger"
 
 	"github.com/dgrijalva/jwt-go"
 )

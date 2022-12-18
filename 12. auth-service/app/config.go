@@ -1,10 +1,12 @@
 package app
 
 import (
-	"auth/db"
-	"auth/logger"
 	"log"
 	"os"
+
+	"github.com/umakantv/go-utils/db"
+
+	"github.com/umakantv/go-utils/logger"
 
 	"github.com/spf13/viper"
 )

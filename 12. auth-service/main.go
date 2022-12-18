@@ -2,7 +2,8 @@ package main
 
 import (
 	"auth/app"
-	"auth/logger"
+
+	"github.com/umakantv/go-utils/logger"
 )
 
 func main() {
