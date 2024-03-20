@@ -2,9 +2,10 @@ package domain
 
 import (
 	"database/sql"
-	"github.com/dgrijalva/jwt-go"
 	"strings"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
 )
 
 type Login struct {
@@ -15,9 +16,10 @@ type Login struct {
 }
 
 func (l Login) ClaimsForAccessToken() AccessTokenClaims {
-	if l.Accounts.Valid && l.CustomerId.Valid {
+
+	if l.Accounts.Valid && l.CustomerId.Valid { // if db return non-null string
 		return l.claimsForUser()
-	} else {
+	} else { // if db returns null value then we check it as Invalid NullString
 		return l.claimsForAdmin()
 	}
 }
