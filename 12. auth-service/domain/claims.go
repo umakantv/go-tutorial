@@ -1,8 +1,9 @@
 package domain
 
 import (
-	"github.com/dgrijalva/jwt-go"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
 )
 
 const HMAC_SAMPLE_SECRET = "hmacSampleSecret"

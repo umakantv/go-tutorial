@@ -31,6 +31,7 @@ func (d CustomerRepositoryDB) FindAll(status string) ([]Customer, *errs.AppError
 
 	if err != nil {
 		logger.Error("Error in fetching customers " + err.Error())
+		return nil, errs.NewInternalServerError("Unexpected error: " + err.Error())
 	}
 
 	return customers, nil
