@@ -1,1 +1,3 @@
-Learning Go from https://go.dev/doc/tutorial/
+Learning Go from:
+* https://go.dev/doc/tutorial
+* https://go.dev/tour/list
