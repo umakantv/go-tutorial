@@ -1,8 +1,11 @@
-# Routines
+
+# Concurrency
+
+[Go Tour - Concurrency](https://go.dev/tour/concurrency/1)
+
+## Routines
 
 In an application, there are many blocking requests such as network and database calls.
-
-## Concurrency
 
 ![Routine Diagram 1](dg-routine-1.png)
 To handle that in go, we use routines with functions.  
@@ -15,7 +18,7 @@ Whenever go encouters a blocking call, it sets aside that routine and executes c
 ![Routine Diagram 2](dg-routine-2.png)
 Each concurrent execution can be done by making use of each **logical** core from CPU.
 
-# Channels
+## Channels
 ![Channel](dg-channels.png)
 Since routines run independently and main routine controls the termination of our program, we need to have some communication among routines.  
 
@@ -43,3 +46,10 @@ They can get executed in any order for non-blocking parts of the code.
 
 But we can safely say that since all go routines will have a listener,
 the program will terminate after all go routines each will have sent a message.
+
+
+## Learn More
+
+* [Concurrency is not parallelism](https://go.dev/blog/waza-talk)
+* [Futures in Go, no package required](https://appliedgo.net/futures/)
+* [Rethinking Classical Concurrency Patterns](https://www.youtube.com/watch?v=5zXAHh5tJqQ)
