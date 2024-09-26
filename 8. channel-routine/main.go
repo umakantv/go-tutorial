@@ -136,7 +136,8 @@ func selectStatement() {
 	go task(3, f)
 
 	// To process all results, use a loop
-	// we could also use empty for loop with additional case to break out of the loop
+	// we could also use empty for loop with additional case to exit the loop
+	// NOTE: use return to exit the loop, break will only exit the select statement
 	for i := 0; i < 2; i++ {
 		select {
 		case res := <-e:
@@ -151,13 +152,13 @@ func selectStatementWithTwoWayCommunication() {
 
 	// select statement can also be used to block until a channel is ready to receive
 
-	g := make(chan int64)
+	c := make(chan int64)
 	quit := make(chan int)
 
 	go func() {
 		// fmt.Println("Waiting for 2 seconds before receiving")
 		// time.Sleep(2 * time.Second)
-		fmt.Println(<-g)
+		fmt.Println(<-c, "Received from channel")
 		quit <- 0
 		// Close the channel once sent
 		close(quit)
@@ -165,13 +166,13 @@ func selectStatementWithTwoWayCommunication() {
 
 	for {
 		select {
-		case g <- time.Now().Unix():
+		case c <- time.Now().Unix():
 			fmt.Println("Sent to channel")
 			// close(g)
 		case <-quit:
 			// This will allow us to wait until we receive from the channel
 			fmt.Println("Receiver sent signal, done receiving")
-			break
+			return
 		}
 	}
 }

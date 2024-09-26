@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"math/rand"
 	"time"
 )
@@ -22,8 +21,4 @@ func generateLdapId(merchant_name string) string {
 	ldapId := generateRandomStringFromChars("ABCDEFGHJKMNPQRSTUVWXYZ123456789", 10)
 
 	return ldapId
-}
-
-func main() {
-	fmt.Println(generateLdapId("Umakant Pvt Ltd"))
 }

@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 // var coordinates = map[string]interface{
 // 	"asdf": {
 // 		"UpiHandle1": (12, 3),
@@ -20,9 +18,4 @@ func getCoordinates(businessCategory string, field string) (int, int) {
 		}
 	}
 	return 0, 0
-}
-
-func main() {
-	fmt.Println("Hello, 世界")
-	fmt.Println(getCoordinates("A", "UpiHansdle1"))
 }
