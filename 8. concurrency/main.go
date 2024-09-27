@@ -1,13 +1,17 @@
 package main
 
 import (
-	"fmt"
+	"context"
+	"log"
+	"sync"
 	"time"
 )
 
 func main() {
 
-	basics()
+	// routinesBasic()
+
+	// channelsBasic()
 
 	// bufferedChannels()
 
@@ -18,9 +22,15 @@ func main() {
 	// rangingOverChannels()
 
 	// selectStatement()
-	selectStatementWithTwoWayCommunication()
+
+	// selectStatementWithTwoWayCommunication()
+
+	// pollingWithoutCancel()
+
+	pollingWithCancelInGoRoutine()
 
 	// checkSites()
+
 	// go MultipleChannels()
 
 }
@@ -32,9 +42,28 @@ func task(delay int, c chan int64) {
 	c <- time.Now().Unix()
 }
 
+func routinesBasic() {
+
+	wg := sync.WaitGroup{}
+
+	wg.Add(1)
+
+	// Start a goroutine
+	go func(delay int, wg *sync.WaitGroup) {
+
+		time.Sleep(time.Duration(delay) * time.Second)
+		log.Println("Hello from a goroutine, finished after", delay, "seconds")
+		wg.Done()
+
+	}(1, &wg)
+
+	// Wait for the goroutine to finish
+	wg.Wait()
+}
+
 // Basic usage of channels
 // By default, sends and receives block until the other side is ready.
-func basics() {
+func channelsBasic() {
 
 	c := make(chan int64)
 
@@ -42,7 +71,7 @@ func basics() {
 	go task(1, c)
 
 	// Wait til we receive from the channel
-	fmt.Println(<-c)
+	log.Println(<-c)
 }
 
 // Buffered channels
@@ -60,8 +89,8 @@ func bufferedChannels() {
 	// Sending to a buffered channel is blocking only when the buffer is full.
 	// Receiving is blocking when the buffer is empty.
 
-	fmt.Println(<-c)
-	fmt.Println(<-c)
+	log.Println(<-c)
+	log.Println(<-c)
 }
 
 // Fetching data from multiple sources at once without blocking
@@ -75,7 +104,7 @@ func asynchronousTasks() {
 		task(3, a)
 	})
 	// d := Fetch(3)
-	fmt.Println(<-c, <-d)
+	log.Println(<-c, <-d)
 }
 
 // Fetching data from multiple sources at once with blocking
@@ -83,9 +112,9 @@ func asynchronousTasks() {
 // This is similar to await promise1, await promise2 in JS
 func synchronousTasks() {
 	c := <-Fetch(4)
-	fmt.Println(c)
+	log.Println(c)
 	d := <-Fetch(3)
-	fmt.Println(d)
+	log.Println(d)
 }
 
 // We can range over channels to get results as they arrive and process them
@@ -108,7 +137,7 @@ func rangingOverChannels() {
 
 	// To terminal the range loop with channels, it must be closed
 	for t := range c {
-		fmt.Println(t)
+		log.Println(t)
 	}
 }
 
@@ -124,9 +153,9 @@ func selectStatement() {
 
 	select {
 	case res := <-c:
-		fmt.Println("Select got results from first task", res)
+		log.Println("Select got results from first task", res)
 	case res := <-d:
-		fmt.Println("Select got results from second task", res)
+		log.Println("Select got results from second task", res)
 	}
 
 	e := make(chan int64)
@@ -141,9 +170,9 @@ func selectStatement() {
 	for i := 0; i < 2; i++ {
 		select {
 		case res := <-e:
-			fmt.Println("Select got results from 3rd task", res)
+			log.Println("Select got results from 3rd task", res)
 		case res := <-f:
-			fmt.Println("Select got results from 4th task", res)
+			log.Println("Select got results from 4th task", res)
 		}
 	}
 }
@@ -156,9 +185,9 @@ func selectStatementWithTwoWayCommunication() {
 	quit := make(chan int)
 
 	go func() {
-		// fmt.Println("Waiting for 2 seconds before receiving")
+		// log.Println("Waiting for 2 seconds before receiving")
 		// time.Sleep(2 * time.Second)
-		fmt.Println(<-c, "Received from channel")
+		log.Println(<-c, "Received from channel")
 		quit <- 0
 		// Close the channel once sent
 		close(quit)
@@ -167,11 +196,11 @@ func selectStatementWithTwoWayCommunication() {
 	for {
 		select {
 		case c <- time.Now().Unix():
-			fmt.Println("Sent to channel")
+			log.Println("Sent to channel")
 			// close(g)
 		case <-quit:
 			// This will allow us to wait until we receive from the channel
-			fmt.Println("Receiver sent signal, done receiving")
+			log.Println("Receiver sent signal, done receiving")
 			return
 		}
 	}
@@ -191,4 +220,64 @@ func GenericFetch[T any](fn func(c chan T)) chan T {
 		fn(c)
 	}()
 	return c
+}
+
+// We can use timed channels to repeat operations
+func repeatWithTimeout(ctx context.Context, condition func() bool, timeout int, interval int) {
+
+	// Poll every second
+	tickChan := time.Tick(time.Duration(interval) * time.Second)
+	timeoutChan := time.After(time.Duration(timeout) * time.Second)
+
+	for {
+		select {
+		case <-tickChan:
+			log.Println("Checking the condition")
+			if condition() {
+				log.Println("Condition satisfied")
+				return
+			}
+		case <-timeoutChan:
+			log.Println("Exiting due to timeout")
+			return
+		case <-ctx.Done():
+			log.Println("Context got done or cancelled")
+			return
+		}
+	}
+}
+
+// This example shows how can implement polling
+// until a condition satisfies or timeout is reached.
+// We can also add context.WithCancel
+func pollingWithoutCancel() {
+
+	now := time.Now().Unix()
+	repeatWithTimeout(context.Background(), func() bool {
+		next := time.Now().Unix()
+
+		if next > now+10 {
+			return true
+		}
+		return false
+	}, 8, 2) // Decrease timeout to 8 for causing timeout
+}
+
+func pollingWithCancelInGoRoutine() {
+
+	ctx, cancelFunc := context.WithCancel(context.Background())
+	go repeatWithTimeout(ctx, func() bool {
+		return false
+	}, 30, 2) // Decrease timeout to 8 for causing timeout
+
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	time.AfterFunc(3*time.Second, func() {
+		cancelFunc()
+		time.Sleep(2 * time.Second) // Just wait for case <-ctx.Done() to be handled
+		wg.Done()
+	})
+
+	wg.Wait()
+
 }
